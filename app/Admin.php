@@ -5,6 +5,7 @@ namespace App;
 use App\Like;
 use App\Post;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
@@ -31,5 +32,16 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminResetPasswordNotification($token));
+    }
 
 }
